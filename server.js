@@ -10,7 +10,7 @@ app.use(express.urlencoded({extended: false}))
 //routes
 
 app.get('/', (req, res) => {
-    res.send('Local NODE API')
+    res.send('Move to /accidents There are Nothing in home page')
 })
 
 app.get('/emka', (req, res) => {
@@ -80,10 +80,11 @@ app.delete('/accidents/:id', async(req, res) =>{
         res.status(500).json({message: error.message})
     }
 })
-
+// mongoose cloud
+// mongodb+srv://emkatech:EE06BC23F2@devgafsaapi.mkcickp.mongodb.net/api?retryWrites=true&w=majority'
 mongoose.set("strictQuery", false)
 mongoose.
-connect('mongodb+srv://emkatech:EE06BC23F2@devgafsaapi.mkcickp.mongodb.net/api?retryWrites=true&w=majority')
+connect('mongodb://mongo:27017/accidentsdb',{useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
     console.log('connected to MongoDB')
     app.listen(3000, ()=> {
