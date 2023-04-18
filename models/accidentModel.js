@@ -6,6 +6,10 @@ const accidentSchema = mongoose.Schema(
             type: String,
             required: [true, "Please enter a  name"]
         },
+        message: {
+            type: String,
+            required: [true, "Please enter a  Message"]
+        },
         lang: {
             type: String,
             required: [true, "Please enter a message lang"]
@@ -15,7 +19,7 @@ const accidentSchema = mongoose.Schema(
             required: true,
            
         },
-        nbr_jours_avec_accident: {
+        nbr_totale_accidents: {
             type: Number,
             required: true,
         },

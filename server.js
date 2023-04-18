@@ -87,8 +87,8 @@ mongoose.
 connect('mongodb://mongo:27017/accidentsdb',{useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
     console.log('connected to MongoDB')
-    app.listen(3000, ()=> {
-        console.log(`Node API app is running on port 3000`)
+    app.listen(80, ()=> {
+        console.log(`Node API app is running on port 80`)
     });
 }).catch((error) => {
     console.log(error)
