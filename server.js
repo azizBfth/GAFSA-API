@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Accident = require('./models/accidentModel')
 const app = express()
+const axios = require('axios');
 
 
 app.use(express.json())
@@ -12,6 +13,16 @@ app.use(express.urlencoded({extended: false}))
 app.get('/', (req, res) => {
     res.send('Move to /accidents There are Nothing in home page')
 })
+app.get('/weather', async (req, res) => {
+    try {
+      const response = await axios.get("https://api.open-meteo.com/v1/forecast?latitude=34.3260314&longitude=8.384242&current_weather=true");
+      res.send(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Server Error ${error}`);
+    }
+  });
 
 app.get('/emka', (req, res) => {
     res.send('EmkaTECH ...')
