@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Accident = require('./models/accidentModel')
 const app = express()
-const axios = require('axios');
+const request = require('request');
 
 
 app.use(express.json())
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 })
 app.get('/weather', async (req, res) => {
     try {
-      const response = await axios.get("https://api.open-meteo.com/v1/forecast?latitude=34.3260314&longitude=8.384242&current_weather=true");
+      const response = await request.get("https://api.open-meteo.com/v1/forecast?latitude=34.3260314&longitude=8.384242&current_weather=true");
       res.send(response.data);
       console.log(response.data)
     } catch (error) {
