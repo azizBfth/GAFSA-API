@@ -23,6 +23,10 @@ const accidentSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        temperature: {
+            type: Number,
+            default: 18
+          }
     },
     {
         timestamps: true
