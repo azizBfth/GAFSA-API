@@ -35,5 +35,22 @@ const accidentSchema = mongoose.Schema(
 
 
 const Accident = mongoose.model('Accident', accidentSchema);
-
+Accident.findOne({ username: 'gctAccidents' }, function(err, user) {
+    if (err) throw err;
+  
+    if (!user) {
+      var newAccident = new Accident({
+        name: 'gct',
+        message: 'GCT ACCIDENTS MESSAGE CHECK ...',
+        nbr_jours_sans_accident:20,
+        nbr_totale_accidents:21,
+        lang: 'Fr'
+      });
+  
+      newAccident.save(function(err) {
+        if (err) throw err;
+        console.log('Default user created!');
+      });
+    }
+  });
 module.exports = Accident;
