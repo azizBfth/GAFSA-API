@@ -23,7 +23,7 @@ router.get("/accidents", async (req, res) => {
     const fAcc =  await Accident.findOneAndUpdate(
         { _id: accidents[0]._id },
         {
-          temperature:weatherData.current_weather.temperature,
+          temperature:Math.round(weatherData.current_weather.temperature),
         },
         { upsert: true, new: true }
       );
@@ -37,7 +37,7 @@ router.get("/accidents", async (req, res) => {
   router.get("/accidents/:id", async (req, res) => {
     const user = await getLoggerUser(req.userId);
 
-    if (!req.isAuth || !user.administrator) {
+    if (!req.isAuth ) {
       return res.status(401).json({ message: 'Unauthenticated!' });
     }
     try {

@@ -25,6 +25,8 @@ const UserSchema = new mongoose.Schema({
 );
 
 const User = mongoose.model('User', UserSchema);
+
+
 User.findOne({ username: 'admin' }, function(err, user) {
     if (err) throw err;
   
