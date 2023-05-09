@@ -73,6 +73,7 @@ router.get("/accidents", async (req, res) => {
     }
     try {
       const { id } = req.params;
+      console.log("ACCIDENT PUT:",req.body);
       const accident = await Accident.findByIdAndUpdate(id, req.body);
       // we cannot find any accident in database
       if (!accident) {

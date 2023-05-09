@@ -9,6 +9,8 @@ const accidentRoutes = require("./routes/accidents");
 
 const sessionRoutes = require("./routes/session");
 const isAuth = require(".//middlewares/is-auth");
+const path = require("path");
+
 const cookieParser = require("cookie-parser");
 
 const cors = require("cors");
@@ -17,6 +19,7 @@ const cors = require("cors");
 app.use(cookieParser());
 
 app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(isAuth);
@@ -25,7 +28,14 @@ app.use(isAuth);
 app.use("/api", userRoutes);
 app.use("/api", sessionRoutes);
 app.use("/api", accidentRoutes);
+app.use("/", accidentRoutes);
 
+
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 
 
@@ -39,6 +49,29 @@ app.get("/api/weather", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send(`Server Error ${error}`);
+  }
+});
+
+app.get("/accidents", async (req, res) => {
+  try {
+    const accidents = await Accident.find({});
+    const response = await axios.get(
+      "https://api.open-meteo.com/v1/forecast?latitude=34.3260314&longitude=8.384242&current_weather=true"
+    );
+    const weatherData = await response.data
+   // console.log(response);
+
+  const fAcc =  await Accident.findOneAndUpdate(
+      { _id: accidents[0]._id },
+      {
+        temperature:Math.round(weatherData.current_weather.temperature),
+      },
+      { upsert: true, new: true }
+    );
+
+    res.status(200).json(fAcc);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
