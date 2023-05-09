@@ -15,7 +15,7 @@ router.get("/accidents", async (req, res) => {
     try {
       const accidents = await Accident.find({});
       const response = await axios.get(
-        "https://api.open-meteo.com/v1/forecast?latitude=34.3260314&longitude=8.384242&current_weather=true"
+        "http://api.open-meteo.com/v1/forecast?latitude=34.3260314&longitude=8.384242&current_weather=true"
       );
       const weatherData = await response.data
      // console.log(response);
