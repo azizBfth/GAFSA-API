@@ -35,10 +35,10 @@ const accidentSchema = mongoose.Schema(
 
 
 const Accident = mongoose.model('Accident', accidentSchema);
-Accident.findOne({ username: 'gctAccidents' }, function(err, user) {
+Accident.findOne({ name: 'gct' }, function(err, acc) {
     if (err) throw err;
   
-    if (!user) {
+    if (!acc) {
       var newAccident = new Accident({
         name: 'gct',
         message: 'GCT ACCIDENTS MESSAGE CHECK ...',
