@@ -42,8 +42,8 @@ Accident.findOne({ name: 'gct' }, function(err, acc) {
       var newAccident = new Accident({
         name: 'gct',
         message: 'GCT ACCIDENTS MESSAGE CHECK ...',
-        nbr_jours_sans_accident:20,
-        nbr_totale_accidents:21,
+        nbr_jours_sans_accident: 20,
+        nbr_totale_accidents: 21,
         lang: 'Fr'
       });
   

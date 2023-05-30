@@ -1,4 +1,5 @@
 const express = require('express');
+const cron = require('node-cron');
 
 const router = express.Router();
 
@@ -10,6 +11,32 @@ const Accident = require('../models/accidentModel');
 
 
 
+async function updateEntity(req, res) {
+  try {
+    const accidents = await Accident.find({});
+  
+
+    console.log("ACCIDENT::::::",accidents[0])
+
+  const fAcc =  await Accident.findOneAndUpdate(
+      { _id: accidents[0]._id },
+      {
+        nbr_jours_sans_accident:accidents[0].nbr_jours_sans_accident +1,
+      },
+      { upsert: true, new: true }
+    );
+    console.log('Entity updated!');
+
+  } catch (error) {
+    //res.status(500).json({ message: error.message });
+    console.log("ERROR:",error);
+    }
+
+}
+
+cron.schedule('0 0 * * *', () => {
+  updateEntity();
+});
 
 router.get("/accidents", async (req, res) => {
     try {
